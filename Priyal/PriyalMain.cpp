@@ -1,3 +1,4 @@
+#include "../SharedData.h"
 #include "SearchSort.h"
 #include <iostream>
 #include "HashTable.h"
@@ -5,29 +6,18 @@
 #include "AVLTree.h"
 using namespace std;
 
-int main() {
+int priyalModule() {
     HashTable h;
     BST tree;
     AVLTree avl;
     SearchSort ss;
 
-    h.insert(101, "Iti");
-    h.insert(102, "Riddhisha");
-    h.insert(103, "Priyal");
-    h.insert(104, "Aditi");
-
-    tree.insert(105);
-    tree.insert(102);
-    tree.insert(108);
-    tree.insert(101);
-    tree.insert(104);
-
-    avl.insert(30);
-    avl.insert(20);
-    avl.insert(10);
-    avl.insert(40);
-    avl.insert(50);
-    avl.insert(25);
+    if (sharedMembers.empty()) {
+        cout << "No shared members yet. Run option 1 (Iti) first.\n";
+    }
+    for (const auto& m : sharedMembers) h.insert(m.id, m.name.c_str());
+    for (const auto& e : sharedExpenses) { tree.insert(e.id); avl.insert(e.id); }
+    if (sharedExpenses.empty()) cout << "No shared expenses yet. Run option 1 first.\n";
 
     int choice, id;
 
@@ -76,8 +66,10 @@ int main() {
                 break;
             
             case 6: {
-                int amounts[] = {500, 200, 800, 100, 400};
-                int n = 5;
+                if (sharedExpenses.empty()) { cout << "No expenses to search/sort.\n"; break; }
+                int n = static_cast<int>(sharedExpenses.size());
+                int* amounts = new int[n];
+                for (int i=0;i<n;++i) amounts[i] = static_cast<int>(sharedExpenses[i].amount);
 
                 cout << "Original Expenses: ";
                 ss.display(amounts, n);
@@ -95,13 +87,16 @@ int main() {
                 << ss.binarySearch(amounts, n, 400)
                 << endl;
 
-                int amounts2[] = {900, 300, 700, 100, 500};
+                int* amounts2 = new int[n];
+                for (int i=0;i<n;++i) amounts2[i] = static_cast<int>(sharedExpenses[i].amount);
 
                 ss.quickSort(amounts2, n);
 
                 cout << "After Quick Sort: ";
                 ss.display(amounts2, n);
 
+                delete[] amounts;
+                delete[] amounts2;
                 break;
             }
 

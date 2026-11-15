@@ -1,3 +1,4 @@
+#include "SharedData.h"
 
 #include <iostream>
 #include <limits>
@@ -87,8 +88,10 @@ void quickSort(Expense arr[], int low, int high) {
     }
 }
 
-int main() {
+int itiModule() {
 
+    sharedMembers.clear();
+    sharedExpenses.clear();
     Member members[4];
     int n;
 
@@ -113,6 +116,7 @@ int main() {
         cin >> name;
 
         members[i].setMember(id, name);
+        sharedMembers.push_back({id, name});
     }
 
     cout << "\n===== ADD EXPENSE =====\n";
@@ -185,6 +189,7 @@ while (!validPayer) {
             payerID, category, date
         );
         expenseList.addExpense(expenses[i]);
+        sharedExpenses.push_back({expenseID, description, amount, payerID, category, date});
     }
 
     cout << "\n===== ALL EXPENSES =====\n";
@@ -209,6 +214,9 @@ cout << "\nEnter Expense ID to delete: ";
 cin >> deleteID;
 
 expenseList.deleteExpense(deleteID);
+for (auto it = sharedExpenses.begin(); it != sharedExpenses.end(); ++it) {
+    if (it->id == deleteID) { sharedExpenses.erase(it); break; }
+}
 int index = -1;
 
 for (int i = 0; i < expenseCount; i++) {

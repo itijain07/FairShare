@@ -64,7 +64,7 @@ public:
     }
 };
 
-int main() {
+int heapModule() {
     MaxHeap heap;
 
     // 0 = Aditi

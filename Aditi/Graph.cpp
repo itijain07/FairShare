@@ -94,7 +94,7 @@ public:
     }
 };
 
-int main() {
+int graphModule() {
     Graph g(4);
 
     // 0 = Aditi

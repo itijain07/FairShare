@@ -122,7 +122,7 @@ public:
     }
 };
 
-int main() {
+int monthlyModule() {
     MonthlyTracker tracker;
     int choice = -1;
 

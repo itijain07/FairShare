@@ -8,7 +8,7 @@ void settlementCalculation();
 void undoFeature();
 void queueFeature();
 
-int main() {
+int riddhishaModule() {
     int choice;
 
     do {
